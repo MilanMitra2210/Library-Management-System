@@ -15,16 +15,13 @@ public class ReturnBook extends JFrame implements ActionListener {
     private JButton confirmButton, cancelButton;
 
     public ReturnBook() {
-        // Set JFrame properties
         setTitle("Return Book");
         setSize(400, 350);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Center the frame on the screen
+        setLocationRelativeTo(null); 
 
-        // Create and set layout manager
         setLayout(new BorderLayout());
 
-        // Create labels
         bookNameLabel = new JLabel("Enter Book Name:");
         authorLabel = new JLabel("Enter Author:");
         serialNumberLabel = new JLabel("Serial Number:");
@@ -32,7 +29,6 @@ public class ReturnBook extends JFrame implements ActionListener {
         returnDateLabel = new JLabel("Return Date:");
         remarksLabel = new JLabel("Remarks:");
 
-        // Create a dropdown for book names
         ArrayList<String> books = new ArrayList<>();
         try {
 			Conn c = new Conn();
@@ -47,28 +43,23 @@ public class ReturnBook extends JFrame implements ActionListener {
         String[] bookNames = new String[books.size()];
         for(int i = 0; i < books.size();i++) {
         	bookNames[i] = books.get(i);
-        } // Replace with your book names
+        } 
         bookNameDropdown = new JComboBox<>(bookNames);
 
-        // Create text fields
         authorField = new JTextField(20);
         serialNumberField = new JTextField(10);
         issueDateField = new JTextField(10);
         returnDateField = new JTextField(10);
 
-        // Create a text area for remarks
         remarksTextArea = new JTextArea(4, 20);
         JScrollPane remarksScrollPane = new JScrollPane(remarksTextArea);
 
-        // Create a button
         confirmButton = new JButton("Confirm");
         cancelButton = new JButton("Back");
 
-        // Add action listener to the confirm button
         confirmButton.addActionListener(this);
         cancelButton.addActionListener(this);
 
-        // Create a panel for input components
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -124,23 +115,18 @@ public class ReturnBook extends JFrame implements ActionListener {
         gbc.gridwidth = 2;
         inputPanel.add(remarksScrollPane, gbc);
 
-        // Create a panel for the confirm button
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.add(confirmButton);
         buttonPanel.add(cancelButton);
 
-        // Add the input panel and button panel to the frame
         add(inputPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Set the frame visible
         setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == confirmButton) {
-            // Handle "Confirm" button action
-            // Implement logic to process the book return
             String selectedBook = (String) bookNameDropdown.getSelectedItem();
             String author = authorField.getText();
             String serialNumber = serialNumberField.getText();
@@ -148,7 +134,6 @@ public class ReturnBook extends JFrame implements ActionListener {
             String returnDate = returnDateField.getText();
             String remarks = remarksTextArea.getText();
 
-            // Perform the book return operation or validation
             System.out.println("Book Name: " + selectedBook);
             System.out.println("Author: " + author);
             System.out.println("Serial Number: " + serialNumber);

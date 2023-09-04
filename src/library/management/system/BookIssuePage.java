@@ -2,7 +2,6 @@ package library.management.system;
 
 import javax.swing.*;
 
-import com.mysql.cj.xdevapi.Statement;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,23 +17,19 @@ public class BookIssuePage extends JFrame implements ActionListener {
     private JButton issueButton, cancelButton;
 
     public BookIssuePage() {
-        // Set JFrame properties
         setTitle("Book Issue");
         setSize(400, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Center the frame on the screen
+        setLocationRelativeTo(null); 
 
-        // Create and set layout manager
         setLayout(new BorderLayout());
 
-        // Create labels
         bookNameLabel = new JLabel("Enter Book Name:");
         authorLabel = new JLabel("Enter Author:");
         issueDateLabel = new JLabel("Issue Date:");
         returnDateLabel = new JLabel("Return Date:");
         remarksLabel = new JLabel("Remarks:");
 
-        // Create a dropdown for book names
         
         ArrayList<String> books = new ArrayList<>();
         try {
@@ -53,24 +48,19 @@ public class BookIssuePage extends JFrame implements ActionListener {
         }
         bookNameDropdown = new JComboBox<>(bookNames);
 
-        // Create text fields
         authorField = new JTextField(20);
         issueDateField = new JTextField(10);
         returnDateField = new JTextField(10);
 
-        // Create a text area for remarks
         remarksTextArea = new JTextArea(4, 20);
         JScrollPane remarksScrollPane = new JScrollPane(remarksTextArea);
 
-        // Create buttons
         issueButton = new JButton("Issue");
         cancelButton = new JButton("Back");
 
-        // Add action listeners to the buttons
         issueButton.addActionListener(this);
         cancelButton.addActionListener(this);
 
-        // Create a panel for input components
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -118,30 +108,24 @@ public class BookIssuePage extends JFrame implements ActionListener {
         gbc.gridwidth = 2;
         inputPanel.add(remarksTextArea, gbc);
 
-        // Create a panel for buttons
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.add(issueButton);
         buttonPanel.add(cancelButton);
 
-        // Add the input panel and button panel to the frame
         add(inputPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Set the frame visible
         setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == issueButton) {
-            // Handle "Issue" button action
-            // Implement logic to process the book issue
             String selectedBook = (String) bookNameDropdown.getSelectedItem();
             String author = authorField.getText();
             String issueDate = issueDateField.getText();
             String returnDate = returnDateField.getText();
             String remarks = remarksTextArea.getText();
 
-            // Perform the book issuing operation or validation
             System.out.println("Book Name: " + selectedBook);
             System.out.println("Author: " + author);
             System.out.println("Issue Date: " + issueDate);
@@ -159,15 +143,12 @@ public class BookIssuePage extends JFrame implements ActionListener {
 				c.stmt.executeUpdate(update);
 				
 				JOptionPane.showMessageDialog(null, "Book Issued Successfully");
-//				new Dashboard(username).setVisible(true);
 			} catch (Exception ae) {
 				ae.printStackTrace();
 			}
             
             
         } else if (e.getSource() == cancelButton) {
-            // Handle "Cancel" button action
-            // Close the "Book Issue" page
         	new TransactionPage().setVisible(true);
             dispose();
         }

@@ -33,7 +33,7 @@ public class Login extends JFrame implements ActionListener {
         panel.add(usernameField);
         panel.add(passwordLabel);
         panel.add(passwordField);
-        panel.add(new JLabel()); // Empty label for spacing
+        panel.add(new JLabel());
         panel.add(loginButton);
 
         add(titleLabel, BorderLayout.NORTH);

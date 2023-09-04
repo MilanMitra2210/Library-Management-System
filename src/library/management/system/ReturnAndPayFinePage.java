@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class ReturnAndPayFinePage extends JFrame implements ActionListener {
     private JLabel bookNameLabel, authorLabel, serialNumberLabel, issueDateLabel, returnDateLabel, actualReturnDateLabel, fineCalculatedLabel, finePaidLabel, remarksLabel;
@@ -13,16 +15,13 @@ public class ReturnAndPayFinePage extends JFrame implements ActionListener {
     private JButton confirmButton, backButton;
 
     public ReturnAndPayFinePage() {
-        // Set JFrame properties
         setTitle("Return and Pay Fine");
         setSize(400, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Center the frame on the screen
+        setLocationRelativeTo(null); 
 
-        // Create and set layout manager
         setLayout(new BorderLayout());
 
-        // Create labels
         bookNameLabel = new JLabel("Enter Book Name:");
         authorLabel = new JLabel("Enter Author:");
         serialNumberLabel = new JLabel("Serial Number:");
@@ -33,11 +32,23 @@ public class ReturnAndPayFinePage extends JFrame implements ActionListener {
         finePaidLabel = new JLabel("Fine Paid:");
         remarksLabel = new JLabel("Remarks:");
 
-        // Create a dropdown for book names
-        String[] bookNames = {"Book 1", "Book 2", "Book 3"}; // Replace with your book names
+        ArrayList<String> books = new ArrayList<>();
+        try {
+			Conn c = new Conn();
+			ResultSet rs = c.stmt.executeQuery
+					("SELECT BookName FROM booksissued;");
+			while(rs.next()) {
+				books.add(rs.getString("BookName"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        String[] bookNames = new String[books.size()];
+        for(int i = 0; i < books.size();i++) {
+        	bookNames[i] = books.get(i);
+        }
         bookNameDropdown = new JComboBox<>(bookNames);
 
-        // Create text fields
         authorField = new JTextField(20);
         serialNumberField = new JTextField(10);
         issueDateField = new JTextField(10);
@@ -46,19 +57,15 @@ public class ReturnAndPayFinePage extends JFrame implements ActionListener {
         fineCalculatedField = new JTextField(10);
         finePaidField = new JTextField(10);
 
-        // Create a text area for remarks
         remarksTextArea = new JTextArea(4, 20);
         JScrollPane remarksScrollPane = new JScrollPane(remarksTextArea);
 
-        // Create buttons
         confirmButton = new JButton("Confirm");
         backButton = new JButton("Back");
 
-        // Add action listeners to the buttons
         confirmButton.addActionListener(this);
         backButton.addActionListener(this);
 
-        // Create a panel for input components
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -138,23 +145,18 @@ public class ReturnAndPayFinePage extends JFrame implements ActionListener {
         gbc.gridwidth = 2;
         inputPanel.add(remarksScrollPane, gbc);
 
-        // Create a panel for the buttons
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.add(confirmButton);
         buttonPanel.add(backButton);
 
-        // Add the input panel and button panel to the frame
         add(inputPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Set the frame visible
         setVisible(true);
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == confirmButton) {
-            // Handle "Confirm" button action
-            // Implement logic to process the return and payment of fine
             String selectedBook = (String) bookNameDropdown.getSelectedItem();
             String author = authorField.getText();
             String serialNumber = serialNumberField.getText();
@@ -165,7 +167,6 @@ public class ReturnAndPayFinePage extends JFrame implements ActionListener {
             String finePaid = finePaidField.getText();
             String remarks = remarksTextArea.getText();
 
-            // Perform the return and payment of fine operation or validation
             System.out.println("Book Name: " + selectedBook);
             System.out.println("Author: " + author);
             System.out.println("Serial Number: " + serialNumber);
@@ -176,10 +177,7 @@ public class ReturnAndPayFinePage extends JFrame implements ActionListener {
             System.out.println("Fine Paid: " + finePaid);
             System.out.println("Remarks: " + remarks);
 
-            // You can add further logic here, such as updating book status and fine in a database.
         } else if (e.getSource() == backButton) {
-            // Handle "Back" button action
-            // Close the "Return and Pay Fine" page
         	new TransactionPage().setVisible(true);;
             dispose();
         }
