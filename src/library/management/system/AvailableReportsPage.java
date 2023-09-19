@@ -62,8 +62,9 @@ public class AvailableReportsPage extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == logoutButton) {
+            
+            new UserHomePage().setVisible(true);
             dispose();
-            new TransactionPage().setVisible(true);
         }
     }
 

@@ -32,7 +32,7 @@ public class AvailableBookPage extends JFrame implements ActionListener {
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         buttonPanel.add(backButton);
-        buttonPanel.add(issueButton);
+//        buttonPanel.add(issueButton);
 
         JPanel availableBooksPanel = new JPanel(new BorderLayout());
         availableBooksPanel.add(titleLabel, BorderLayout.NORTH);
@@ -89,7 +89,7 @@ public class AvailableBookPage extends JFrame implements ActionListener {
         } else if (e.getSource() == issueButton) {
             int rowCount = tableModel.getRowCount();
             for (int row = 0; row < rowCount; row++) {
-                Boolean isSelected = (Boolean) tableModel.getValueAt(row, 4);
+                Boolean isSelected = (Boolean) tableModel.getValueAt(row, 3);
                 if (isSelected) {
                     String bookName = (String) tableModel.getValueAt(row, 0);
                     String author = (String) tableModel.getValueAt(row, 1);

@@ -20,7 +20,7 @@ public class UserHomePage extends JFrame implements ActionListener {
 
         setLayout(new BorderLayout());
 
-        maintenanceButton = new JButton("Maintenance");
+        maintenanceButton = new JButton("Reports");
 //        reportsButton = new JButton("Reports");
         transactionButton = new JButton("Transaction");
         logoutButton = new JButton("Logout");
@@ -63,6 +63,8 @@ public class UserHomePage extends JFrame implements ActionListener {
             Login loginApp = new Login();
             loginApp.setVisible(true);
         } else if (e.getSource() == maintenanceButton) {
+        	new AvailableReportsPage().setVisible(true);
+        	dispose();
         } else if (e.getSource() == transactionButton) {
         	new TransactionPage().setVisible(true);
         	dispose();

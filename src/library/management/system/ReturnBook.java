@@ -24,7 +24,7 @@ public class ReturnBook extends JFrame implements ActionListener {
 
         bookNameLabel = new JLabel("Enter Book Name:");
         authorLabel = new JLabel("Enter Author:");
-        serialNumberLabel = new JLabel("Serial Number:");
+//        serialNumberLabel = new JLabel("Serial Number:");
         issueDateLabel = new JLabel("Issue Date:");
         returnDateLabel = new JLabel("Return Date:");
         remarksLabel = new JLabel("Remarks:");
@@ -47,7 +47,7 @@ public class ReturnBook extends JFrame implements ActionListener {
         bookNameDropdown = new JComboBox<>(bookNames);
 
         authorField = new JTextField(20);
-        serialNumberField = new JTextField(10);
+//        serialNumberField = new JTextField(10);
         issueDateField = new JTextField(10);
         returnDateField = new JTextField(10);
 
@@ -83,11 +83,11 @@ public class ReturnBook extends JFrame implements ActionListener {
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        inputPanel.add(serialNumberLabel, gbc);
+//        inputPanel.add(serialNumberLabel, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
-        inputPanel.add(serialNumberField, gbc);
+//        inputPanel.add(serialNumberField, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -129,24 +129,25 @@ public class ReturnBook extends JFrame implements ActionListener {
         if (e.getSource() == confirmButton) {
             String selectedBook = (String) bookNameDropdown.getSelectedItem();
             String author = authorField.getText();
-            String serialNumber = serialNumberField.getText();
+//            String serialNumber = serialNumberField.getText();
             String issueDate = issueDateField.getText();
             String returnDate = returnDateField.getText();
             String remarks = remarksTextArea.getText();
 
             System.out.println("Book Name: " + selectedBook);
             System.out.println("Author: " + author);
-            System.out.println("Serial Number: " + serialNumber);
             System.out.println("Issue Date: " + issueDate);
             System.out.println("Return Date: " + returnDate);
             System.out.println("Remarks: " + remarks);
             
-            Conn connection = new Conn();
+//            Conn connection = new Conn();
             
             String sql = "DELETE FROM booksissued WHERE BookName ='" + selectedBook+"'";
+            String update = "UPDATE books SET Quantity= Quantity + 1 WHERE BookName='" + selectedBook + "'";
             try {
 				Conn c = new Conn();
 				c.stmt.executeUpdate(sql);
+				c.stmt.executeUpdate(update);
 				
 				JOptionPane.showMessageDialog(null, "Book Successfully Returned");
 			} catch (Exception ae) {

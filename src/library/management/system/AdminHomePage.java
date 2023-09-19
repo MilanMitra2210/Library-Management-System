@@ -61,6 +61,7 @@ public class AdminHomePage extends JFrame implements ActionListener {
         	dispose();
         } else if (e.getSource() == reportsButton) {
             new AvailableReportsPage().setVisible(true);
+            dispose();
         } else if (e.getSource() == transactionButton) {
         	new TransactionPage().setVisible(true);
         	dispose();
