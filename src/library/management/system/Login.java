@@ -55,7 +55,8 @@ public class Login extends JFrame implements ActionListener {
                 new AdminHomePage().setVisible(true);
                 dispose();
             } else {
-            	String sql = "Select * from user Where name = '" + username + "' AND password='" + String.valueOf(password)
+            	String sql = "Select * from user Where name = '" +
+            username + "' AND password='" + String.valueOf(password)
                 +"';";
                 
             	try {
